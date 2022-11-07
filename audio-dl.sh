@@ -1,3 +1,2 @@
 #!/bin/bash
-echo $1
-youtube-dl -x --audio-format mp3 $1
+yt-dlp -x --audio-format mp3 --output "fd/%(uploader)s%(title)s.%(ext)s" "$1"
