@@ -1,2 +1,3 @@
-fd/
-segment/
+fd/*.mp3
+fd/segment/
+*.mp3
