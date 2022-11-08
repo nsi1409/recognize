@@ -26,6 +26,11 @@ for path in paths:
 	else:
 		check_index -= 1
 		path_id = path_id[check_index]
+	label_location = 'fd/label/'
+	write_location = label_location+path_id+'.json'
+	if os.path.exists(write_location):
+		print(f'Label Already Exists At: {write_location}')
+		continue
 	segments = sorted(glob.glob(f'{path}/*'))
 	segment_size = 8
 	collect = []
@@ -60,9 +65,8 @@ for path in paths:
 			outp[str(datetime.timedelta(seconds=parsed[found][0]))] = found
 
 	pp.pprint(outp)
-	label_location = 'fd/label/'
 	if not os.path.exists(label_location):
 		os.mkdir(label_location)
-	json_outp = json.dumps(outp)
-	with open(label_location+path_id+'.json', 'w') as outfile:
+	json_outp = json.dumps(outp, indent=4)
+	with open(write_location, 'w') as outfile:
 		outfile.write(json_outp)
