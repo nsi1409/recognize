@@ -20,5 +20,7 @@ for fd in fds:
 	path = f'fd/segment/{fd.split(".")[0]}'
 	if not os.path.exists(path):
 		os.mkdir(path)
-	print(f'ffmpeg -i \"fd/raw/{fd}\" -f segment -segment_time 8 -c copy \"{path}/slice%04d.mp3\"')
-	os.system(f'ffmpeg -i \"fd/raw/{fd}\" -f segment -segment_time 8 -c copy \"{path}/slice%04d.mp3\"')
+		print(f'ffmpeg -i \"fd/raw/{fd}\" -f segment -segment_time 8 -c copy \"{path}/slice%04d.mp3\"')
+		os.system(f'ffmpeg -i \"fd/raw/{fd}\" -f segment -segment_time 8 -c copy \"{path}/slice%04d.mp3\"')
+
+os.system('python master.py')
