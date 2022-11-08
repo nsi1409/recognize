@@ -1,6 +1,7 @@
 import glob
 import json
 from subprocess import run
+import os
 import pprint
 import datetime
 import argparse
@@ -18,6 +19,13 @@ print(paths)
 
 for path in paths:
 	print(path)
+	path_id = path.split('/')
+	check_index = len(path_id)-1
+	if path_id[check_index] != '':
+		path_id = path_id[check_index]
+	else:
+		check_index -= 1
+		path_id = path_id[check_index]
 	segments = sorted(glob.glob(f'{path}/*'))
 	segment_size = 8
 	collect = []
@@ -52,3 +60,9 @@ for path in paths:
 			outp[str(datetime.timedelta(seconds=parsed[found][0]))] = found
 
 	pp.pprint(outp)
+	label_location = 'fd/label/'
+	if not os.path.exists(label_location):
+		os.mkdir(label_location)
+	json_outp = json.dumps(outp)
+	with open(label_location+path_id+'.json', 'w') as outfile:
+		outfile.write(json_outp)
